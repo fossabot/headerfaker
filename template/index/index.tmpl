@@ -1,0 +1,127 @@
+{{ define "index/index.tmpl" }}
+    <!DOCTYPE html>
+    <html lang="zh">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>HeaderFaker</title>
+        <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                <span class="fs-2">HeaderFaker <span class="fs-5">v0.1.0</span></span>
+            </a>
+        </header>
+
+        <div class="p-5 mb-4 bg-light rounded-3">
+            <div class="container-fluid py-5">
+                <h1>Welcome to HeaderFaker</h1>
+                <p class="col-md-10 fs-4">You can learn how to build a fake request header here.</p>
+            </div>
+        </div>
+
+        <h2 class="mb-3 pb-3 border-bottom">Tests</h2>
+        <div class="row">
+
+            {{ range $index, $test := .testlist }}
+                <div class="col-md-6">
+                    <div class="col rounded bg-light p-3 m-1">
+                        <div class="row">
+                            <div class="col-8">
+                                <h5>{{ $test.TestTitle }}</h5>
+                            </div>
+                            <div class="col-4 text-end">
+                                {{ if eq $test.TestDegree 1 }}
+                                    <span class="badge rounded bg-success h5">Easy</span>
+                                {{ else if eq $test.TestDegree 2}}
+                                    <span class="badge rounded bg-warning h5">Medium</span>
+                                {{ else }}
+                                    <span class="badge rounded bg-danger h5">Hard</span>
+                                {{ end }}
+                            </div>
+                        </div>
+                        <p></p>
+                        <a href="#" class="btn btn-primary" id="{{ $test.TestTag }}A" data-bs-toggle="modal"
+                           data-bs-target="#{{ $test.TestTag }}Modal">Try now</a>
+                    </div>
+                </div>
+            {{ else }}
+                <div class="col-md-12 text-center text-mute">
+                    <h2>No test now!</h2>
+                </div>
+            {{ end }}
+
+        </div>
+        <footer class="py-3 my-4">
+            <p class="text-muted border-top pt-2 fs-6">
+                &copy; 2021 CUSTF Team. Made with ❤ for beginner!
+            </p>
+        </footer>
+    </div>
+
+    {{ range $index, $test := .testlist }}
+        <div class="modal fade" id="{{ $test.TestTag }}Modal" data-bs-backdrop="static" data-bs-keyboard="false"
+             tabindex="-1"
+             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">{{ $test.TestTitle }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>Description</h5>
+                        <p>{{ $test.TestDescription }}</p>
+                        <h5>Url</h5>
+                        <p><a href="{{ $test.TestUrl }}" target="_blank">{{ $test.TestTitle }}</a></p>
+                        <form name="{{ $test.TestTag }}Form">
+                            <div class="mb-3">
+                                <label for="{{ $test.TestTag }}" class="col-form-label">Enter the Flag:</label>
+                                <input type="text" class="form-control" id="{{ $test.TestTag }}">
+                            </div>
+                        </form>
+                        <button type="button" class="btn btn-primary" id="{{ $test.TestTag }}Btn"
+                                onclick="goCheck({{ $test.TestTag }})">Submit
+                        </button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{ end }}
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script type="text/javascript">
+        function goCheck(id) {
+            axios.post('/check', {
+                checktag: id,
+                checkflag: document.getElementById(id).value
+            })
+                .then(function (response) {
+                    console.log(response)
+                    if (response.data.code === 200) {
+                        alert("Congratulations on your successful pass!");
+                        document.getElementById(id + "Btn").className = "btn btn-success disabled"
+                        document.getElementById(id + "Btn").innerText = "Done"
+                        document.getElementById(id + "A").className = "btn btn-success disabled"
+                        document.getElementById(id + "A").innerText = "Done"
+                    } else {
+                        alert("Sorry, Please try again!");
+                    }
+                    document.getElementById(id).value = "";
+                })
+                .catch(function (error) {
+                    console.log(error)
+                });
+        }
+    </script>
+    </body>
+    </html>
+{{ end }}

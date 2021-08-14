@@ -1,0 +1,172 @@
+{{ define "quiz/getresponse.tmpl" }}
+    <!-- By RainySummer | https:/rainysummer.top | hi@rainysummer.top -->
+    <!--suppress JSUnresolvedLibraryURL -->
+    <!DOCTYPE html>
+    <html lang="zh, en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Opos.. | HeaderFaker</title>
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <meta name="theme-color" content="#ffffff">
+
+        <style>
+            /* Originally create by Kiryu | https://www.kiryu.it | mail@nekomimi.it */
+            /* Revised by RainySummer | https:/rainysummer.top | hi@rainysummer.top */
+
+            @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+            html {
+                color: white;
+                background-color: #0078d7;
+            }
+
+            body {
+                font-family: 'Open Sans', sans-serif;
+                user-select: none;
+                text-align: left;
+                justify-content: center;
+            }
+
+            @media screen and (orientation: portrait) {
+                #main {
+                    margin-left: 9vw;
+                    width: 84%;
+                }
+
+                #emoticon {
+                    font-size: 18vmin;
+                    margin-top: 10vh;
+                    margin-bottom: 4vh;
+                }
+
+                #desc {
+                    font-size: 4.5vmin;
+                    line-height: 7vmin;
+                    margin-bottom: 4vh;
+                }
+
+                #progress {
+                    font-size: 4vmin;
+                    margin-bottom: 4vh;
+                }
+
+                #float {
+                    display: inline-block;
+                }
+
+                #svg {
+                    float: left;
+                    width: 9vh;
+                    margin-right: 3vmin;
+                    margin-top: 1.4vmin;
+                }
+
+                #address {
+                    font-size: 2vh;
+                    line-height: 3vh;
+                    margin-top: 0.3vh;
+                    margin-bottom: 0;
+                }
+
+                #stopcode3 {
+                    display: none;
+                }
+
+                #stopcode2 {
+                    line-height: 6vmin;
+                    margin-top: 8vmin;
+                }
+            }
+
+            @media screen and (orientation: landscape) {
+                #main {
+                    margin-left: 11vw;
+                    width: 50vw;
+                }
+
+                #emoticon {
+                    font-size: 18vmin;
+                    margin-top: 9vh;
+                    margin-bottom: 5vh;
+                }
+
+                #desc {
+                    font-size: 4vmin;
+                    margin-bottom: 5vh;
+                }
+
+                #progress {
+                    font-size: 4vmin;
+                    margin-bottom: 5vh;
+                }
+
+                #svg {
+                    float: left;
+                    height: 17vh;
+                    margin-right: 1.5vw;
+                }
+
+                #address {
+                    font-size: 2vh;
+                    margin-top: 0;
+                }
+
+                #stopcode {
+                    font-size: 2vh;
+                    line-height: 4vh;
+                }
+
+                #stopcode2 {
+                    display: none;
+                }
+
+                #stopcode3 {
+                    font-size: 2vh;
+                    margin-top: 2vh;
+                }
+            }
+
+            a:link, a:visited, a:link:active, a:visited:active {
+                color: white;
+                text-decoration: none;
+            }
+
+            a:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+
+    <body oncontextmenu="return false;">
+    <div id="main">
+        <p id="emoticon">:(</p>
+        <p id="desc">Flag is not here. Please check this site carefully. We're telling you where the flag is. Read the
+            test's title again and find out the answer.</p>
+        <p id="progress">100% complete</p>
+        <div id="float">
+            <img alt="qrcode" id="svg"
+                 src="data:image/png;base64,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">
+            <div>
+                <p id="address">
+                    For more information about this issue and possible fixes, visit HeaderFaker Project
+                </p>
+                <p id="stopcode3">
+                    The page's copyright information is here:<br/>
+                    <span id="stopcode">Copyright © 2021, <a href="https://www.lzc.app/" target="_blank">RainySummer</a>. All Rights Reserved.</span>
+                    - <a href="https://github.com/RainySummerLuo" target="_blank">Github</a><br/>
+                    <span id="stopcode">RainySummer's site link <a href="https://www.lzc.app/bluescreen"
+                                                                   target="_blank">https://www.lzc.app/bluescreen</a></span><br/>
+                    <span id="stopcode">This page is a copy of <a href="https://www.lzc.app/bluescreen" target="_blank">https://www.lzc.app/bluescreen</a></span>
+                </p>
+            </div>
+            <p id="stopcode2">
+                If you call a support person, give them this info:
+                <br/>
+                Stop code: SIT_BACK_AND_RELAX
+            </p>
+        </div>
+    </div>
+    </body>
+    </html>
+
+{{ end }}

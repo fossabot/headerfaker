@@ -1,0 +1,37 @@
+[
+  {
+    "testtitle": "Get Responses",
+    "testdegree": 1,
+    "testdescription": "Open the page & get the response!",
+    "testurl": "test/getresponses",
+    "testtag": "getResponsesID"
+  },
+  {
+    "testtitle": "Easy Password",
+    "testdegree": 1,
+    "testdescription": "The page has a password, which is easy to remember.",
+    "testurl": "test/easypassword",
+    "testtag": "easyPasswordID"
+  },
+  {
+    "testtitle": "GET / POST",
+    "testdegree": 1,
+    "testdescription": "Is the method appropriate?",
+    "testurl": "test/getorpost?key=w8f0bxSqIpb4uO8lPN6BCFUe8XFDPjIOX4XePKYyuxACeHKr9YJ5sgBVRvULboFekvI5ZKIlSem3yRQbYjZlsBBVLEHlO70xm4vhemJYZ6DeIAjfGST4ybncfHTFLI3k",
+    "testtag": "getOrPostID"
+  },
+  {
+    "testtitle": "Fake Refer",
+    "testdegree": 1,
+    "testdescription": "You must come from there!",
+    "testurl": "test/fakerefer",
+    "testtag": "fakeReferID"
+  },
+  {
+    "testtitle": "Fake Agent",
+    "testdegree": 1,
+    "testdescription": "WoW, your iphone's browser is so handsome!",
+    "testurl": "test/fakeagent",
+    "testtag": "fakeAgentID"
+  }
+]
