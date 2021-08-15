@@ -59,8 +59,8 @@ func EasyPasswordPOSTHandler(c *gin.Context) {
 
 // GetHandler Handle test router (GET)
 func GetHandler(c *gin.Context) {
-	key := c.Query("key")
-	if len(key) >= 128 {
+	getKey := c.Query("key")
+	if len(getKey) >= 128 {
 		c.JSON(http.StatusRequestURITooLong, gin.H{
 			"code":    http.StatusRequestURITooLong,
 			"message": "RequestURITooLong",
@@ -77,19 +77,10 @@ func GetHandler(c *gin.Context) {
 
 // PostHandler Handle test router (POST)
 func PostHandler(c *gin.Context) {
-	var post struct {
-		Key string `json:"key"`
-	}
-	jsonError := c.BindJSON(&post)
-	if jsonError != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"code":    http.StatusBadRequest,
-			"message": "BadRequest",
-		})
-	}
+	postKey := c.Query("key")
 
 	key := "w8f0bxSqIpb4uO8lPN6BCFUe8XFDPjIOX4XePKYyuxACeHKr9YJ5sgBVRvULboFekvI5ZKIlSem3yRQbYjZlsBBVLEHlO70xm4vhemJYZ6DeIAjfGST4ybncfHTFLI3k"
-	if post.Key == key {
+	if postKey == key {
 		c.HTML(http.StatusOK, "quiz/flag.tmpl", gin.H{
 			"code":    http.StatusOK,
 			"message": data.FlagData["getOrPostID"],
