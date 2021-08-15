@@ -1,0 +1,15 @@
+[Unit]
+Description=HeaderFaker Service
+After=network.target
+
+[Service]
+Type=simple
+User=nobody
+Restart=on-failure
+RestartSec=5s
+ExecStart=<YOUR_HEADERFAKER_ABSOLUTE_PATH>
+WorkingDirectory=<YOUR_HEADERFAKER_DIR_ABSOLUTE_PATH>
+LimitNOFILE=1048576
+
+[Install]
+WantedBy=multi-user.target

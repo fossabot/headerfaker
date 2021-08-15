@@ -67,26 +67,29 @@ func GetHandler(c *gin.Context) {
 			"title":   "GET / POST",
 		})
 	} else {
-		if key == "w8f0bxSqIpb4uO8lPN6BCFUe8XFDPjIOX4XePKYyuxACeHKr9YJ5sgBVRvULboFekvI5ZKIlSem3yRQbYjZlsBBVLEHlO70xm4vhemJYZ6DeIAjfGST4ybncfHTFLI3k" {
-			c.HTML(http.StatusOK, "quiz/flag.tmpl", gin.H{
-				"code":    http.StatusOK,
-				"message": data.FlagData["getOrPostID"],
-				"title":   "GET / POST",
-			})
-		} else {
-			c.JSON(http.StatusUnauthorized, gin.H{
-				"code":    http.StatusUnauthorized,
-				"message": "InCorrectKey",
-				"title":   "GET / POST",
-			})
-		}
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"code":    http.StatusUnauthorized,
+			"message": "InCorrectKey",
+			"title":   "GET / POST",
+		})
 	}
 }
 
 // PostHandler Handle test router (POST)
 func PostHandler(c *gin.Context) {
-	key := c.Query("key")
-	if key == "w8f0bxSqIpb4uO8lPN6BCFUe8XFDPjIOX4XePKYyuxACeHKr9YJ5sgBVRvULboFekvI5ZKIlSem3yRQbYjZlsBBVLEHlO70xm4vhemJYZ6DeIAjfGST4ybncfHTFLI3k" {
+	var post struct {
+		Key string `json:"key"`
+	}
+	jsonError := c.BindJSON(&post)
+	if jsonError != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"code":    http.StatusBadRequest,
+			"message": "BadRequest",
+		})
+	}
+
+	key := "w8f0bxSqIpb4uO8lPN6BCFUe8XFDPjIOX4XePKYyuxACeHKr9YJ5sgBVRvULboFekvI5ZKIlSem3yRQbYjZlsBBVLEHlO70xm4vhemJYZ6DeIAjfGST4ybncfHTFLI3k"
+	if post.Key == key {
 		c.HTML(http.StatusOK, "quiz/flag.tmpl", gin.H{
 			"code":    http.StatusOK,
 			"message": data.FlagData["getOrPostID"],
@@ -124,16 +127,28 @@ func FakeReferHandler(c *gin.Context) {
 
 // FakeAgentHandler Handle test router
 func FakeAgentHandler(c *gin.Context) {
-	if strings.Contains(c.Request.UserAgent(), "iPhone") && strings.Contains(c.Request.UserAgent(), "NetType 2G/3G/4G/5G") {
+	if strings.Contains(c.Request.UserAgent(), "iPhone") && strings.Contains(c.Request.UserAgent(), "AppleWebKit") && strings.Contains(c.Request.UserAgent(), "NetType 2G/3G/4G/5G") {
 		c.HTML(http.StatusOK, "quiz/flag.tmpl", gin.H{
 			"code":    http.StatusOK,
 			"message": data.FlagData["fakeAgentID"],
 			"title":   "Fake Agent",
 		})
-	} else {
+	} else if strings.Contains(c.Request.UserAgent(), "iPhone") == false {
 		c.JSON(http.StatusForbidden, gin.H{
 			"code":    http.StatusForbidden,
-			"message": "InCorrectDevice",
+			"message": "ForbiddenDevice",
+			"title":   "Fake Agent",
+		})
+	} else if strings.Contains(c.Request.UserAgent(), "AppleWebKit") == false {
+		c.JSON(http.StatusForbidden, gin.H{
+			"code":    http.StatusForbidden,
+			"message": "InCorrectUserAgent",
+			"title":   "Fake Agent",
+		})
+	} else if strings.Contains(c.Request.UserAgent(), "NetType 2G/3G/4G/5G") == false {
+		c.JSON(http.StatusForbidden, gin.H{
+			"code":    http.StatusForbidden,
+			"message": "InCorrectUserAgent",
 			"title":   "Fake Agent",
 			"required": gin.H{
 				"key":       "NetType",

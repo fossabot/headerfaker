@@ -27,6 +27,8 @@ go build
 # Move data file to program root dir
 mv ./database/data.json .
 
+# Copy the ./template if you want to run in other dir
+
 # Set runnable power (Linux need)
 sudo chmod +x ./headerfaker
 
@@ -54,10 +56,12 @@ User=nobody
 Restart=on-failure
 RestartSec=5s
 ExecStart=<YOUR_HEADERFAKER_ABSOLUTE_PATH>
+WorkingDirectory=<YOUR_HEADERFAKER_DIR_ABSOLUTE_PATH>
 LimitNOFILE=1048576
 
 [Install]
 WantedBy=multi-user.target
+# Or you can copy the .service file under the ./init dir
 
 # Start the service
 systemctl start headerfaker
