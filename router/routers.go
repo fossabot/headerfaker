@@ -6,8 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// SetRouter Set HeaderFaker Routers
-func SetRouter() *gin.Engine {
+// SetRouters Set HeaderFaker Routers
+func SetRouters() *gin.Engine {
 	r := gin.Default()
 
 	// Use Middlewares
@@ -24,7 +24,8 @@ func SetRouter() *gin.Engine {
 	{
 		tests.GET("/getresponses", controller.GetResponsesHandler)
 
-		tests.GET("/easypassword", controller.EasyPasswordHandler)
+		tests.GET("/easypassword", controller.EasyPasswordGETHandler)
+		tests.POST("/easypassword", controller.EasyPasswordPOSTHandler)
 
 		tests.GET("/getorpost", controller.GetHandler)
 		tests.POST("/getorpost", controller.PostHandler)

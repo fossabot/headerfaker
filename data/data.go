@@ -2,9 +2,9 @@ package data
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/aURORA-JC/headerfaker/model"
 	"github.com/aURORA-JC/headerfaker/util"
+	"github.com/fatih/color"
 	"io/ioutil"
 	"os"
 )
@@ -19,14 +19,14 @@ func ReadData() {
 	// Read TestData from file
 	file, readError := ioutil.ReadFile("data.json")
 	if readError != nil {
-		fmt.Println("read error")
+		color.Red("Read file error!")
 		os.Exit(10)
 	}
 
 	// Unmarshal JSON TestData
 	unmarshalError := json.Unmarshal([]byte(file), &TestData)
 	if unmarshalError != nil {
-		fmt.Println("json error")
+		color.Red("Illegal json")
 		os.Exit(11)
 	}
 

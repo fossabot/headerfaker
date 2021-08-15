@@ -22,13 +22,39 @@ func GetResponsesHandler(c *gin.Context) {
 	c.HTML(http.StatusOK, "quiz/getresponse.tmpl", nil)
 }
 
-// EasyPasswordHandler Handle test router
-func EasyPasswordHandler(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"code":    http.StatusOK,
-		"message": "TestBuilding",
-		"title":   "EasyPassword",
-	})
+// EasyPasswordGETHandler Handle test router
+func EasyPasswordGETHandler(c *gin.Context) {
+	c.HTML(http.StatusOK, "quiz/easypassword.tmpl", nil)
+}
+
+// EasyPasswordPOSTHandler Handle test router
+func EasyPasswordPOSTHandler(c *gin.Context) {
+	var login struct {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+	jsonError := c.BindJSON(&login)
+	if jsonError != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"code":    http.StatusBadRequest,
+			"message": "BadRequest",
+		})
+	}
+
+	if login.Username == "admin" && login.Password == "admin" {
+		c.JSON(http.StatusOK, gin.H{
+			"code":    http.StatusOK,
+			"message": data.FlagData["easyPasswordID"],
+			"title":   "EasyPassword",
+		})
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"code":    http.StatusUnauthorized,
+			"message": "WrongAuthenticationInformation",
+			"title":   "EasyPassword",
+		})
+	}
+
 }
 
 // GetHandler Handle test router (GET)
@@ -42,7 +68,7 @@ func GetHandler(c *gin.Context) {
 		})
 	} else {
 		if key == "w8f0bxSqIpb4uO8lPN6BCFUe8XFDPjIOX4XePKYyuxACeHKr9YJ5sgBVRvULboFekvI5ZKIlSem3yRQbYjZlsBBVLEHlO70xm4vhemJYZ6DeIAjfGST4ybncfHTFLI3k" {
-			c.HTML(http.StatusOK, "quiz/quiz.tmpl", gin.H{
+			c.HTML(http.StatusOK, "quiz/flag.tmpl", gin.H{
 				"code":    http.StatusOK,
 				"message": data.FlagData["getOrPostID"],
 				"title":   "GET / POST",
@@ -61,7 +87,7 @@ func GetHandler(c *gin.Context) {
 func PostHandler(c *gin.Context) {
 	key := c.Query("key")
 	if key == "w8f0bxSqIpb4uO8lPN6BCFUe8XFDPjIOX4XePKYyuxACeHKr9YJ5sgBVRvULboFekvI5ZKIlSem3yRQbYjZlsBBVLEHlO70xm4vhemJYZ6DeIAjfGST4ybncfHTFLI3k" {
-		c.HTML(http.StatusOK, "quiz/quiz.tmpl", gin.H{
+		c.HTML(http.StatusOK, "quiz/flag.tmpl", gin.H{
 			"code":    http.StatusOK,
 			"message": data.FlagData["getOrPostID"],
 			"title":   "GET / POST",
@@ -78,7 +104,7 @@ func PostHandler(c *gin.Context) {
 // FakeReferHandler Handle test router
 func FakeReferHandler(c *gin.Context) {
 	if c.Request.Referer() == "https://cust.team" || c.Request.Referer() == "https://cust.team/" {
-		c.HTML(http.StatusOK, "quiz/quiz.tmpl", gin.H{
+		c.HTML(http.StatusOK, "quiz/flag.tmpl", gin.H{
 			"code":    http.StatusOK,
 			"message": data.FlagData["fakeReferID"],
 			"title":   "Fake Refer",
@@ -99,7 +125,7 @@ func FakeReferHandler(c *gin.Context) {
 // FakeAgentHandler Handle test router
 func FakeAgentHandler(c *gin.Context) {
 	if strings.Contains(c.Request.UserAgent(), "iPhone") && strings.Contains(c.Request.UserAgent(), "NetType 2G/3G/4G/5G") {
-		c.HTML(http.StatusOK, "quiz/quiz.tmpl", gin.H{
+		c.HTML(http.StatusOK, "quiz/flag.tmpl", gin.H{
 			"code":    http.StatusOK,
 			"message": data.FlagData["fakeAgentID"],
 			"title":   "Fake Agent",

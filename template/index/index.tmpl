@@ -66,7 +66,7 @@
         <div class="modal fade" id="{{ $test.TestTag }}Modal" data-bs-backdrop="static" data-bs-keyboard="false"
              tabindex="-1"
              aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">{{ $test.TestTitle }}</h5>
@@ -105,13 +105,14 @@
                 checkflag: document.getElementById(id).value
             })
                 .then(function (response) {
-                    console.log(response)
+                    console.log(response);
                     if (response.data.code === 200) {
                         alert("Congratulations on your successful pass!");
-                        document.getElementById(id + "Btn").className = "btn btn-success disabled"
-                        document.getElementById(id + "Btn").innerText = "Done"
-                        document.getElementById(id + "A").className = "btn btn-success disabled"
-                        document.getElementById(id + "A").innerText = "Done"
+                        document.getElementById(id).setAttribute("disabled","true");
+                        document.getElementById(id + "Btn").className = "btn btn-success disabled";
+                        document.getElementById(id + "Btn").innerText = "Done";
+                        document.getElementById(id + "A").className = "btn btn-success disabled";
+                        document.getElementById(id + "A").innerText = "Done";
                     } else {
                         alert("Sorry, Please try again!");
                     }
