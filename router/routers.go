@@ -33,6 +33,8 @@ func SetRouters() *gin.Engine {
 		tests.GET("/fakerefer", controller.FakeReferHandler)
 
 		tests.GET("/fakeagent", controller.FakeAgentHandler)
+
+		tests.GET("/fakeip", controller.FakeIPHandler)
 	}
 
 	// Keys Checker Router

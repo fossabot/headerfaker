@@ -39,19 +39,18 @@ func EasyPasswordPOSTHandler(c *gin.Context) {
 			"code":    http.StatusBadRequest,
 			"message": "BadRequest",
 		})
+		return
 	}
 
 	if login.Username == "admin" && login.Password == "admin" {
 		c.JSON(http.StatusOK, gin.H{
 			"code":    http.StatusOK,
 			"message": data.FlagData["easyPasswordID"],
-			"title":   "EasyPassword",
 		})
 	} else {
 		c.JSON(http.StatusOK, gin.H{
 			"code":    http.StatusUnauthorized,
 			"message": "WrongAuthenticationInformation",
-			"title":   "EasyPassword",
 		})
 	}
 
@@ -64,13 +63,11 @@ func GetHandler(c *gin.Context) {
 		c.JSON(http.StatusRequestURITooLong, gin.H{
 			"code":    http.StatusRequestURITooLong,
 			"message": "RequestURITooLong",
-			"title":   "GET / POST",
 		})
 	} else {
 		c.JSON(http.StatusUnauthorized, gin.H{
 			"code":    http.StatusUnauthorized,
 			"message": "InCorrectKey",
-			"title":   "GET / POST",
 		})
 	}
 }
@@ -84,13 +81,11 @@ func PostHandler(c *gin.Context) {
 		c.HTML(http.StatusOK, "quiz/flag.tmpl", gin.H{
 			"code":    http.StatusOK,
 			"message": data.FlagData["getOrPostID"],
-			"title":   "GET / POST",
 		})
 	} else {
 		c.JSON(http.StatusUnauthorized, gin.H{
 			"code":    http.StatusUnauthorized,
 			"message": "InCorrectKey",
-			"title":   "GET / POST",
 		})
 	}
 }
@@ -101,13 +96,11 @@ func FakeReferHandler(c *gin.Context) {
 		c.HTML(http.StatusOK, "quiz/flag.tmpl", gin.H{
 			"code":    http.StatusOK,
 			"message": data.FlagData["fakeReferID"],
-			"title":   "Fake Refer",
 		})
 	} else {
 		c.JSON(http.StatusForbidden, gin.H{
 			"code":    http.StatusForbidden,
 			"message": "InCorrectRefer",
-			"title":   "Fake Refer",
 			"required": gin.H{
 				"host": "cust.team",
 				"tls":  "necessary",
@@ -122,29 +115,43 @@ func FakeAgentHandler(c *gin.Context) {
 		c.HTML(http.StatusOK, "quiz/flag.tmpl", gin.H{
 			"code":    http.StatusOK,
 			"message": data.FlagData["fakeAgentID"],
-			"title":   "Fake Agent",
 		})
 	} else if strings.Contains(c.Request.UserAgent(), "iPhone") == false {
 		c.JSON(http.StatusForbidden, gin.H{
 			"code":    http.StatusForbidden,
 			"message": "ForbiddenDevice",
-			"title":   "Fake Agent",
 		})
 	} else if strings.Contains(c.Request.UserAgent(), "AppleWebKit") == false {
 		c.JSON(http.StatusForbidden, gin.H{
 			"code":    http.StatusForbidden,
 			"message": "InCorrectUserAgent",
-			"title":   "Fake Agent",
 		})
 	} else if strings.Contains(c.Request.UserAgent(), "NetType 2G/3G/4G/5G") == false {
 		c.JSON(http.StatusForbidden, gin.H{
 			"code":    http.StatusForbidden,
 			"message": "InCorrectUserAgent",
-			"title":   "Fake Agent",
 			"required": gin.H{
 				"key":       "NetType",
 				"value":     "2G/3G/4G/5G",
 				"delimiter": " ",
+			},
+		})
+	}
+}
+
+func FakeIPHandler(c *gin.Context) {
+	if strings.Contains(c.Request.Header.Get("X-Forwarded-For"), "1.1.1.1") {
+		c.HTML(http.StatusOK, "quiz/flag.tmpl", gin.H{
+			"code":    http.StatusOK,
+			"message": data.FlagData["fakeIPID"],
+		})
+	} else {
+		c.JSON(http.StatusForbidden, gin.H{
+			"code":    http.StatusForbidden,
+			"message": "ForbiddenSource",
+			"policy": gin.H{
+				"mode":   "whitelist",
+				"client": "Cloudflare DNS Center",
 			},
 		})
 	}
@@ -159,6 +166,7 @@ func CheckHandler(c *gin.Context) {
 			"code":    http.StatusBadRequest,
 			"message": "BadRequest",
 		})
+		return
 	}
 
 	if check.CheckFlag == data.FlagData[check.CheckTag] {

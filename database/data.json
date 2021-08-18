@@ -33,5 +33,12 @@
     "testdescription": "WoW, your iphone's browser is so handsome!",
     "testurl": "test/fakeagent",
     "testtag": "fakeAgentID"
+  },
+  {
+    "testtitle": "Fake IP Address",
+    "testdegree": 1,
+    "testdescription": "Ask your ISP to change your ip?",
+    "testurl": "test/fakeip",
+    "testtag": "fakeIPID"
   }
 ]

@@ -17,7 +17,7 @@ var (
 // ReadData Read tests' TestData from TestData.json
 func ReadData() {
 	// Read TestData from file
-	file, readError := ioutil.ReadFile("data.json")
+	file, readError := ioutil.ReadFile("./database/data.json")
 	if readError != nil {
 		color.Red("Read file error!")
 		os.Exit(10)
