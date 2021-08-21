@@ -24,11 +24,6 @@ go build
 + Simple Start
 
 ```shell
-# Move data file to program root dir
-mv ./database/data.json .
-
-# Copy the ./template if you want to run in other dir
-
 # Set runnable power (Linux need)
 sudo chmod +x ./headerfaker
 
@@ -72,7 +67,7 @@ systemctl enable headerfaker
 
 ## Contributing
 
-PRs accepted.
+PRs accepted. But new branch is developing.
 
 ## License
 
