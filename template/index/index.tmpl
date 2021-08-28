@@ -54,14 +54,16 @@
                             </div>
                         </div>
                         <p></p>
+                        {{ $flag := -1 }}
                         {{range $i, $u := $r }}
                             {{ if eq $test.TestID $u }}
-                                <a href="#" class="btn btn-success disabled" id="{{ $test.TestTag }}A" data-bs-toggle="modal"
-                                   data-bs-target="#{{ $test.TestTag }}Modal">Done</a>
-                            {{ else }}
-                                <a href="#" class="btn btn-primary" id="{{ $test.TestTag }}A" data-bs-toggle="modal"
-                                   data-bs-target="#{{ $test.TestTag }}Modal">Try now</a>
+                                {{ $flag = $i }}
                             {{ end }}
+                        {{ end }}
+
+                        {{ if ne $flag -1 }}
+                            <a href="#" class="btn btn-success disabled" id="{{ $test.TestTag }}A" data-bs-toggle="modal"
+                                        data-bs-target="#{{ $test.TestTag }}Modal">Done</a>
                         {{ else }}
                             <a href="#" class="btn btn-primary" id="{{ $test.TestTag }}A" data-bs-toggle="modal"
                            data-bs-target="#{{ $test.TestTag }}Modal">Try now</a>

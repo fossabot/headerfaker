@@ -202,7 +202,7 @@ func EasyPasswordPOSTHandler(c *gin.Context) {
 	if login.Username == "admin" && login.Password == "admin" {
 		c.JSON(http.StatusOK, gin.H{
 			"code":    http.StatusOK,
-			"message": data.FlagData["easyPasswordID"],
+			"message": data.FlagData["easyPasswordID"].Flag,
 		})
 	} else {
 		c.JSON(http.StatusOK, gin.H{
@@ -237,7 +237,7 @@ func PostHandler(c *gin.Context) {
 	if postKey == key {
 		c.HTML(http.StatusOK, "quiz/flag.tmpl", gin.H{
 			"code":    http.StatusOK,
-			"message": data.FlagData["getOrPostID"],
+			"message": data.FlagData["getOrPostID"].Flag,
 		})
 	} else {
 		c.JSON(http.StatusUnauthorized, gin.H{
@@ -253,7 +253,7 @@ func FakeReferHandler(c *gin.Context) {
 	if c.Request.Referer() == "https://cust.team" || c.Request.Referer() == "https://cust.team/" {
 		c.HTML(http.StatusOK, "quiz/flag.tmpl", gin.H{
 			"code":    http.StatusOK,
-			"message": data.FlagData["fakeReferID"],
+			"message": data.FlagData["fakeReferID"].Flag,
 		})
 	} else {
 		c.JSON(http.StatusForbidden, gin.H{
@@ -273,7 +273,7 @@ func FakeAgentHandler(c *gin.Context) {
 	if strings.Contains(c.Request.UserAgent(), "iPhone") && strings.Contains(c.Request.UserAgent(), "AppleWebKit") && strings.Contains(c.Request.UserAgent(), "NetType 2G/3G/4G/5G") {
 		c.HTML(http.StatusOK, "quiz/flag.tmpl", gin.H{
 			"code":    http.StatusOK,
-			"message": data.FlagData["fakeAgentID"],
+			"message": data.FlagData["fakeAgentID"].Flag,
 		})
 	} else if strings.Contains(c.Request.UserAgent(), "iPhone") == false {
 		c.JSON(http.StatusForbidden, gin.H{
@@ -303,7 +303,7 @@ func FakeIPHandler(c *gin.Context) {
 	if strings.Contains(c.Request.Header.Get("X-Forwarded-For"), "1.1.1.1") {
 		c.HTML(http.StatusOK, "quiz/flag.tmpl", gin.H{
 			"code":    http.StatusOK,
-			"message": data.FlagData["fakeIPID"],
+			"message": data.FlagData["fakeIPID"].Flag,
 		})
 	} else {
 		c.JSON(http.StatusForbidden, gin.H{
