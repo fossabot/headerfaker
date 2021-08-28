@@ -16,6 +16,7 @@ func IndexHandler(c *gin.Context) {
 	// Get user cookie, if not exist, set a guest cookie
 	cookie, cookieError := c.Cookie("hfer-cookie")
 	if cookieError != nil {
+		cookie = "guest"
 		c.SetCookie("hfer-cookie", "guest", 0, "/", "", false, false)
 	}
 
