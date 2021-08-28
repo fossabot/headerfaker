@@ -14,6 +14,16 @@
             <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
                 <span class="fs-2">HeaderFaker <span class="fs-5">v0.1.0</span></span>
             </a>
+
+            <ul class="nav nav-pills">
+                {{ if eq .status 0}}
+                    <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
+                    <li class="nav-item"><a href="/register" class="nav-link">Register</a></li>
+                {{ else }}
+                    <li class="nav-item"><a href="#" class="nav-link">{{ .user }}</a></li>
+                    <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
+                {{ end }}
+            </ul>
         </header>
 
         <div class="p-5 mb-4 bg-light rounded-3">
@@ -23,14 +33,9 @@
             </div>
         </div>
 
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>Warning!</strong> This page will not save the state, do not refresh if you want to keep your rate!
-                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
-        </div>
-
         <h2 class="mb-3 pb-3 border-bottom">Tests</h2>
         <div class="row">
-
+            {{$r := .record}}
             {{ range $index, $test := .testlist }}
                 <div class="col-md-6">
                     <div class="col rounded bg-light p-3 m-1">
@@ -49,8 +54,18 @@
                             </div>
                         </div>
                         <p></p>
-                        <a href="#" class="btn btn-primary" id="{{ $test.TestTag }}A" data-bs-toggle="modal"
+                        {{range $i, $u := $r }}
+                            {{ if eq $test.TestID $u }}
+                                <a href="#" class="btn btn-success disabled" id="{{ $test.TestTag }}A" data-bs-toggle="modal"
+                                   data-bs-target="#{{ $test.TestTag }}Modal">Done</a>
+                            {{ else }}
+                                <a href="#" class="btn btn-primary" id="{{ $test.TestTag }}A" data-bs-toggle="modal"
+                                   data-bs-target="#{{ $test.TestTag }}Modal">Try now</a>
+                            {{ end }}
+                        {{ else }}
+                            <a href="#" class="btn btn-primary" id="{{ $test.TestTag }}A" data-bs-toggle="modal"
                            data-bs-target="#{{ $test.TestTag }}Modal">Try now</a>
+                        {{ end }}
                     </div>
                 </div>
             {{ else }}
@@ -113,7 +128,16 @@
                     console.log(response);
                     if (response.data.code === 200) {
                         alert("Congratulations on your successful pass!");
-                        document.getElementById(id).setAttribute("disabled","true");
+                        document.getElementById(id).setAttribute("disabled", "true");
+                        document.getElementById(id + "Btn").className = "btn btn-success disabled";
+                        document.getElementById(id + "Btn").innerText = "Done";
+                        document.getElementById(id + "A").className = "btn btn-success disabled";
+                        document.getElementById(id + "A").innerText = "Done";
+                    } else if (response.data.code === 401) {
+                        alert("Please login!");
+                    } else if (response.data.code === 450) {
+                        alert("This problem has been solved!");
+                        document.getElementById(id).setAttribute("disabled", "true");
                         document.getElementById(id + "Btn").className = "btn btn-success disabled";
                         document.getElementById(id + "Btn").innerText = "Done";
                         document.getElementById(id + "A").className = "btn btn-success disabled";

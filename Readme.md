@@ -20,7 +20,32 @@ go build
 
 3. HeaderFaker will be build in the project root path
 
+4. Install Mysql or MariaDB
+
 ## Usage
+
++ Files required to start the program
+```shell
+ + template/
+ + data.json
+ + config.ini
+ + headerfaker
+```
+1. Import the database from `heakerfaker.sql`
+
+3. Modify the configuration file `config.ini`
+```ini
+port = 9000
+release = false
+
+[mysql]
+user = 
+password = 
+host = 
+port = 
+db = headerfaker
+```
+
 + Simple Start
 
 ```shell
@@ -29,7 +54,7 @@ sudo chmod +x ./headerfaker
 
 # Start service
 ./headerfaker
-# HeaderFaker will start on 0.0.0.0:11451
+# HeaderFaker will start on 0.0.0.0:9000
 ````
 
 + systemd run

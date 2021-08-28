@@ -4,41 +4,47 @@
     "testdegree": 1,
     "testdescription": "Open the page & get the response!",
     "testurl": "test/getresponses",
-    "testtag": "getResponsesID"
+    "testtag": "getResponsesID",
+    "testid": "d32d8f9c-e4b8-5547-b080-830f447f3f2d"
   },
   {
     "testtitle": "Easy Password",
     "testdegree": 1,
     "testdescription": "The page has a password, which is easy to remember.",
     "testurl": "test/easypassword",
-    "testtag": "easyPasswordID"
+    "testtag": "easyPasswordID",
+    "testid": "64a9a26e-6a9c-577f-9316-3e6e4ffa608b"
   },
   {
     "testtitle": "GET / POST",
     "testdegree": 1,
     "testdescription": "Is the method appropriate?",
     "testurl": "test/getorpost?key=w8f0bxSqIpb4uO8lPN6BCFUe8XFDPjIOX4XePKYyuxACeHKr9YJ5sgBVRvULboFekvI5ZKIlSem3yRQbYjZlsBBVLEHlO70xm4vhemJYZ6DeIAjfGST4ybncfHTFLI3k",
-    "testtag": "getOrPostID"
+    "testtag": "getOrPostID",
+    "testid": "e28f94d6-90d1-5839-970a-4f77c793d420"
   },
   {
     "testtitle": "Fake Refer",
     "testdegree": 1,
     "testdescription": "You must come from there!",
     "testurl": "test/fakerefer",
-    "testtag": "fakeReferID"
+    "testtag": "fakeReferID",
+    "testid": "fe123b0a-ba06-5242-8c80-e232e9d75d0c"
   },
   {
     "testtitle": "Fake Agent",
     "testdegree": 1,
     "testdescription": "WoW, your iphone's browser is so handsome!",
     "testurl": "test/fakeagent",
-    "testtag": "fakeAgentID"
+    "testtag": "fakeAgentID",
+    "testid": "10608131-4775-50d4-8c8f-4512c84b49ca"
   },
   {
     "testtitle": "Fake IP Address",
     "testdegree": 1,
     "testdescription": "Ask your ISP to change your ip?",
     "testurl": "test/fakeip",
-    "testtag": "fakeIPID"
+    "testtag": "fakeIPID",
+    "testid": "0c075623-16ce-57fe-bd55-ffec97097e09"
   }
 ]

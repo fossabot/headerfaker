@@ -11,13 +11,16 @@ import (
 
 var (
 	TestData []model.Test
-	FlagData map[string]string
+	FlagData map[string]struct {
+		Flag string
+		TUID string
+	}
 )
 
 // ReadData Read tests' TestData from TestData.json
 func ReadData() {
 	// Read TestData from file
-	file, readError := ioutil.ReadFile("./database/data.json")
+	file, readError := ioutil.ReadFile("./data.json")
 	if readError != nil {
 		color.Red("Read file error!")
 		os.Exit(10)
@@ -31,8 +34,17 @@ func ReadData() {
 	}
 
 	// Generate FlagData
-	FlagData = make(map[string]string)
+	FlagData = make(map[string]struct {
+		Flag string
+		TUID string
+	})
 	for _, test := range TestData {
-		FlagData[test.TestTag] = util.GenerateFlag(test.TestTitle)
+		FlagData[test.TestTag] = struct {
+			Flag string
+			TUID string
+		}{
+			util.GenerateFlag(test.TestTitle),
+			test.TestID,
+		}
 	}
 }

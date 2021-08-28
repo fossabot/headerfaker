@@ -19,6 +19,13 @@ func SetRouters() *gin.Engine {
 	// Index router
 	r.GET("/", controller.IndexHandler)
 
+	// User router
+	r.GET("/login", controller.LoginPageHandler)
+	r.POST("/login", controller.LoginPostHandler)
+	r.GET("/register", controller.RegPageHandler)
+	r.POST("/register", controller.RegPostHandler)
+	r.GET("/logout", controller.LogoutHandler)
+
 	// Tests routers
 	tests := r.Group("/test")
 	{
