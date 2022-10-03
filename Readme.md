@@ -1,6 +1,7 @@
 # HeaderFaker
 
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/aURORA-JC/headerfaker?logo=go&style=flat-square)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FCustCSA%2Fheaderfaker.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FCustCSA%2Fheaderfaker?ref=badge_shield)
 
 HeaderFaker is a simulation training ground to Help beginners learn about http protocol with answering some question.
 
@@ -97,6 +98,9 @@ PRs accepted. But new branch is developing.
 ## License
 
 MIT © aURORA-JC
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FCustCSA%2Fheaderfaker.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FCustCSA%2Fheaderfaker?ref=badge_large)
 
 ## Author
 
